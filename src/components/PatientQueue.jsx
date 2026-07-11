@@ -1,12 +1,22 @@
 import { SEVERITY_LABELS, SEV_DOT_BG } from '../lib/severity';
 
-export default function PatientQueue({ patients, onTreatNext }) {
+export default function PatientQueue({ patients, onTreatNext, algorithmName }) {
   if (!patients.length) {
     return <div className="text-slate-400 dark:text-slate-500 text-[13px]">Waiting list is empty.</div>;
   }
 
   return (
     <div className="flex flex-col gap-2">
+      {algorithmName && (
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            Sorted by
+          </span>
+          <span className="font-mono text-[10px] bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/30 rounded px-1.5 py-0.5">
+            {algorithmName}
+          </span>
+        </div>
+      )}
       {patients.map((p, i) => (
         <div
           key={p.id}

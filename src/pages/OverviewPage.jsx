@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { useDashboardData } from '../hooks/useDashboardData';
+import { useSchedulerConfig } from '../hooks/useSchedulerConfig';
+import { getAlgorithmInfo } from '../lib/algorithmInfo';
 import TopBar from '../components/TopBar';
 import Panel from '../components/Panel';
 import AdmitPatientForm from '../components/AdmitPatientForm';
@@ -7,6 +8,7 @@ import PatientQueue from '../components/PatientQueue';
 import ResourcePanel from '../components/ResourcePanel';
 import MetricsPanel from '../components/MetricsPanel';
 import EventLog from '../components/EventLog';
+import SchedulerSelector from '../components/SchedulerSelector';
 
 export default function OverviewPage() {
   const {
@@ -16,6 +18,8 @@ export default function OverviewPage() {
     treatNextPatient,
     dischargePatient,
   } = useDashboardData();
+  const schedulerInfo = state?.scheduler;
+  const { config, loading, setAlgorithm } = useSchedulerConfig(schedulerInfo);
 
   if (!state) {
     return (
@@ -80,6 +84,16 @@ export default function OverviewPage() {
           </div>
         </section>
 
+        <div className="flex items-center justify-between bg-white dark:bg-[#16212c] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3">
+          <div className="text-sm text-slate-600 dark:text-slate-400">
+            Active scheduler:{' '}
+            <span className="font-semibold text-slate-900 dark:text-slate-100">
+              {getAlgorithmInfo(schedulerInfo?.activeAlgorithm).name}
+            </span>
+          </div>
+          <SchedulerSelector config={config} onSetAlgorithm={setAlgorithm} loading={loading} />
+        </div>
+
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-start">
         {/* Column 1: Admission + Waiting Queue */}
         <div className="flex flex-col gap-4 xl:col-span-4">
@@ -89,14 +103,14 @@ export default function OverviewPage() {
 
           <Panel
             title="Waiting list"
-            eyebrow="Preemptive priority · aging enabled"
+            eyebrow={`${getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} · ${schedulerInfo?.activeAlgorithm === 'preemptivePriority' ? 'aging enabled' : schedulerInfo?.activeAlgorithm === 'mlfq' ? 'multi-queue' : schedulerInfo?.activeAlgorithm === 'roundRobin' ? 'time-sliced' : schedulerInfo?.activeAlgorithm === 'edf' ? 'deadline-driven' : 'active'}`}
             right={
               <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
                 {waitingQueue.length} waiting
               </span>
             }
           >
-            <PatientQueue patients={waitingQueue} onTreatNext={treatNextPatient} />
+            <PatientQueue patients={waitingQueue} onTreatNext={treatNextPatient} algorithmName={getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} />
           </Panel>
         </div>
 
