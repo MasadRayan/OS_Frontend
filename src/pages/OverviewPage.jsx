@@ -5,9 +5,6 @@ import Panel from '../components/Panel';
 import AdmitPatientForm from '../components/AdmitPatientForm';
 import PatientQueue from '../components/PatientQueue';
 import ResourcePanel from '../components/ResourcePanel';
-import AmbulanceMap from '../components/AmbulanceMap';
-import AmbulanceRequestForm from '../components/AmbulanceRequestForm';
-import AmbulanceFleet from '../components/AmbulanceFleet';
 import MetricsPanel from '../components/MetricsPanel';
 import EventLog from '../components/EventLog';
 
@@ -18,10 +15,7 @@ export default function OverviewPage() {
     admitPatient,
     treatNextPatient,
     dischargePatient,
-    requestAmbulance,
-    completeTrip,
   } = useDashboardData();
-  const [pendingLocation, setPendingLocation] = useState(null);
 
   if (!state) {
     return (
@@ -36,7 +30,7 @@ export default function OverviewPage() {
     );
   }
 
-  const { hospital, waitingQueue, admitted, resources, callsQueue, ambulances, metrics, eventLog } = state;
+  const { hospital, waitingQueue, admitted, resources, metrics, eventLog } = state;
 
   return (
     <div className="min-h-full flex flex-col">
@@ -70,40 +64,6 @@ export default function OverviewPage() {
 
           <Panel title="Activity" eyebrow="Live event feed">
             <EventLog events={eventLog} />
-          </Panel>
-        </div>
-
-        {/* Column 3: Ambulance dispatch */}
-        <div className="flex flex-col gap-4">
-          <Panel
-            title="Ambulance dispatch"
-            eyebrow="Priority-first · nearest-available matching"
-            right={
-              <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
-                {callsQueue.length} pending call{callsQueue.length === 1 ? '' : 's'}
-              </span>
-            }
-          >
-            <AmbulanceMap
-              hospital={hospital}
-              ambulances={ambulances}
-              callsQueue={callsQueue}
-              pendingLocation={pendingLocation}
-              onPickLocation={setPendingLocation}
-            />
-            <div className="h-3.5" />
-            <AmbulanceRequestForm
-              pendingLocation={pendingLocation}
-              onClearLocation={() => setPendingLocation(null)}
-              onSubmit={async (payload) => {
-                await requestAmbulance(payload);
-                setPendingLocation(null);
-              }}
-            />
-          </Panel>
-
-          <Panel title="Fleet status" eyebrow={`${ambulances.length} ambulances`}>
-            <AmbulanceFleet ambulances={ambulances} onCompleteTrip={completeTrip} />
           </Panel>
         </div>
 

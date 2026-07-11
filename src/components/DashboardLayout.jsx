@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, BarChart3, ArrowLeft, Sun, Moon, Activity, Menu, X } from 'lucide-react';
+import { LayoutDashboard, BarChart3, ArrowLeft, Sun, Moon, Activity, Menu, X, Ambulance } from 'lucide-react';
 import { useTheme } from '../theme/ThemeContext';
 
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Overview', icon: LayoutDashboard, end: true },
+  { to: '/dashboard/ambulance', label: 'Ambulance', icon: Ambulance },
   { to: '/dashboard/analysis', label: 'Analysis', icon: BarChart3 },
 ];
 

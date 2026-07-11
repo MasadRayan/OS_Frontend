@@ -7,6 +7,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import OverviewPage from './pages/OverviewPage';
 import AnalysisPage from './pages/AnalysisPage';
+import AmbulancePage from './pages/AmbulancePage';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
 
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<OverviewPage />} />
+            <Route path="ambulance" element={<AmbulancePage />} />
             <Route path="analysis" element={<AnalysisPage />} />
           </Route>
         </Routes>
