@@ -28,14 +28,14 @@ export default function MetricsPanel({ metrics }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2.5 flex-wrap">
+      <div className="grid grid-cols-2 gap-2.5">
         <StatCard label="Avg wait (60m window)" value={`${metrics.avgWaitMinutes}m`} />
         <StatCard label="Throughput" value={metrics.throughputPerHour} sub="patients/hr" />
         <StatCard label="Ambulance utilization" value={`${metrics.ambulanceUtilization}%`} />
         <StatCard label="Fairness index" value={metrics.fairnessIndex} sub="1.0 = perfectly even" />
       </div>
 
-      <div className="h-[180px]">
+      <div className="h-[210px] rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#1d2b39] px-2 py-2">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
