@@ -4,11 +4,12 @@ import { SEVERITY_LABELS, SEVERITY_LIST, SEV_DOT_BG } from '../lib/severity';
 const inputClass =
   'w-full bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-2 text-[13.5px] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-light/40 dark:focus:ring-brand-dark/40';
 
-export default function AmbulanceRequestForm({ pendingLocation, onClearLocation, onSubmit }) {
+export default function AmbulanceRequestForm({ pendingLocation, onClearLocation, onSubmit, hospitals }) {
   const [callerName, setCallerName] = useState('');
   const [note, setNote] = useState('');
   const [severity, setSeverity] = useState(2);
   const [submitting, setSubmitting] = useState(false);
+  const [destinationId, setDestinationId] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,14 +22,18 @@ export default function AmbulanceRequestForm({ pendingLocation, onClearLocation,
         severity,
         lat: pendingLocation.lat,
         lng: pendingLocation.lng,
+        ...(destinationId ? { destinationId } : {}),
       });
       setCallerName('');
       setNote('');
       setSeverity(2);
+      setDestinationId('');
     } finally {
       setSubmitting(false);
     }
   }
+
+  const showHospitals = hospitals && hospitals.length > 1;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
@@ -69,6 +74,21 @@ export default function AmbulanceRequestForm({ pendingLocation, onClearLocation,
           </button>
         ))}
       </div>
+
+      {showHospitals && (
+        <select
+          className={inputClass}
+          value={destinationId}
+          onChange={(e) => setDestinationId(e.target.value)}
+        >
+          <option value="">Auto-select destination hospital</option>
+          {hospitals.map((h) => (
+            <option key={h.id} value={h.id}>
+              {h.name} {h.bedsAvailable != null ? `(${h.bedsAvailable} beds)` : ''}
+            </option>
+          ))}
+        </select>
+      )}
 
       <div className="flex gap-2">
         <button

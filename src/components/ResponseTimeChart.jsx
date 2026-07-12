@@ -1,5 +1,5 @@
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, Line, ComposedChart,
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend, Line, ComposedChart, Cell,
 } from 'recharts';
 import { useTheme } from '../theme/ThemeContext';
 import { SEV_HEX, SEVERITY_LABELS } from '../lib/severity';
@@ -76,7 +76,7 @@ export default function ResponseTimeChart({ responseTimes }) {
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 <Bar dataKey="avgMinutes" name="Avg minutes" radius={[4, 4, 0, 0]}>
                   {bySeverity.map((d) => (
-                    <rect key={d.severity} fill={d.fill} />
+                    <Cell key={d.severity} fill={d.fill} />
                   ))}
                 </Bar>
                 <Line type="monotone" dataKey="p50" name="Median" stroke="#3b82f6" strokeWidth={2} dot={false} />

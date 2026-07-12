@@ -13,11 +13,12 @@ import {
   PieChart,
   Pie,
 } from 'recharts';
-import { ShieldCheck, ShieldAlert, Clock, MapPin, TimerReset, TrendingUp, AlarmClockCheck, DoorClosed } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, Clock, MapPin, TimerReset, TrendingUp, AlarmClockCheck, DoorClosed, Activity } from 'lucide-react';
 import { useAnalysisData } from '../hooks/useAnalysisData';
 import { useTheme } from '../theme/ThemeContext';
 import TopBar from '../components/TopBar';
 import Panel from '../components/Panel';
+import ResponseTimeChart from '../components/ResponseTimeChart';
 import { SEVERITY_LABELS, SEV_HEX, SEV_BADGE } from '../lib/severity';
 
 function StatCard({ icon: Icon, label, value, sub, tone = 'brand' }) {
@@ -46,7 +47,7 @@ function fmtTime(ts) {
 }
 
 export default function AnalysisPage() {
-  const { analysis, connected } = useAnalysisData();
+  const { analysis, responseTimes, connected } = useAnalysisData();
   const { theme } = useTheme();
   const gridColor = theme === 'dark' ? '#2a3c4d' : '#e2e8f0';
   const tickColor = theme === 'dark' ? '#8ca0b4' : '#64748b';
@@ -358,6 +359,13 @@ export default function AnalysisPage() {
                 </tbody>
               </table>
             </div>
+          </Panel>
+        </div>
+
+        {/* Response time analytics */}
+        <div className="grid grid-cols-1 gap-5">
+          <Panel title="Response time analytics" eyebrow="Ambulance dispatch performance">
+            <ResponseTimeChart responseTimes={responseTimes} />
           </Panel>
         </div>
       </main>
