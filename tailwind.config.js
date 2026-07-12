@@ -7,6 +7,7 @@ export default {
       fontFamily: {
         display: ['Manrope', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        heading: ['"DM Serif Display"', 'Georgia', 'serif'],
       },
       colors: {
         brand: {
