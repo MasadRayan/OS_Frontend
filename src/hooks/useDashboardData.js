@@ -46,6 +46,11 @@ export function useDashboardData() {
     setState(res.data.state);
   }, []);
 
+  const transferToIcu = useCallback(async (patientId) => {
+    const res = await endpoints.transferToIcu(patientId);
+    setState(res.data.state);
+  }, []);
+
   const requestAmbulance = useCallback(async (payload) => {
     const res = await endpoints.requestAmbulance(payload);
     setState(res.data);
@@ -74,6 +79,7 @@ export function useDashboardData() {
     admitPatient,
     treatNextPatient,
     dischargePatient,
+    transferToIcu,
     requestAmbulance,
     completeTrip,
     cancelTrip,

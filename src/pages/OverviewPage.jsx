@@ -17,6 +17,7 @@ export default function OverviewPage() {
     admitPatient,
     treatNextPatient,
     dischargePatient,
+    transferToIcu,
   } = useDashboardData();
   const schedulerInfo = state?.scheduler;
   const { config, loading, setAlgorithm } = useSchedulerConfig(schedulerInfo);
@@ -117,7 +118,7 @@ export default function OverviewPage() {
         {/* Column 2: Resources (Banker's Algorithm) */}
         <div className="flex flex-col gap-4 xl:col-span-4">
           <Panel title="Hospital resources" eyebrow="Banker's Algorithm · safe-state admission">
-            <ResourcePanel resources={resources} admitted={admitted} onDischarge={dischargePatient} />
+            <ResourcePanel resources={resources} admitted={admitted} onDischarge={dischargePatient} onTransferToIcu={transferToIcu} />
           </Panel>
 
           <Panel title="Activity" eyebrow="Live event feed">

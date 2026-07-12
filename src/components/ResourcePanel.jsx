@@ -49,7 +49,7 @@ function StageProgress({ patient }) {
   );
 }
 
-export default function ResourcePanel({ resources, admitted, onDischarge }) {
+export default function ResourcePanel({ resources, admitted, onDischarge, onTransferToIcu }) {
   const { capacity, available } = resources;
   return (
     <div className="flex flex-col gap-4">
@@ -94,6 +94,14 @@ export default function ResourcePanel({ resources, admitted, onDischarge }) {
                   >
                     HOLDING
                   </span>
+                )}
+                {p.department === 'ER' && p.basePriority <= 2 && onTransferToIcu && (
+                  <button
+                    onClick={() => onTransferToIcu(p.id)}
+                    className="bg-transparent border border-purple-500/40 text-purple-600 dark:text-purple-400 rounded-md px-2 py-1 text-[11px] cursor-pointer hover:border-purple-500"
+                  >
+                    Send to ICU
+                  </button>
                 )}
                 <button
                   onClick={() => onDischarge(p.id)}

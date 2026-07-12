@@ -11,6 +11,7 @@ export const endpoints = {
   admitPatient: (payload) => api.post('/patients', payload),
   treatNextPatient: () => api.post('/patients/treat-next'),
   dischargePatient: (patientId) => api.post(`/patients/${patientId}/discharge`),
+  transferToIcu: (patientId) => api.post(`/patients/${patientId}/transfer-to-icu`),
   requestAmbulance: (payload) => api.post('/ambulance/request', payload),
   completeTrip: (ambulanceId) => api.post(`/ambulance/${ambulanceId}/complete-trip`),
   cancelTrip: (ambulanceId, reason) => api.post(`/ambulance/${ambulanceId}/cancel`, { reason }),
