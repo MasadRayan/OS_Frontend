@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMapEvents } from 'react-leaflet';
+import { renderToStaticMarkup } from 'react-dom/server';
 import L from 'leaflet';
 import { SEV_DOT_BG, SEV_BADGE, SEVERITY_LABELS } from '../lib/severity';
 import { FaAmbulance } from "react-icons/fa";
@@ -18,11 +19,11 @@ function hospitalIcon(name, bedsAvailable) {
 function ambulanceIcon(status, type) {
   const isAvailable = status === 'available';
   const ring = isAvailable ? 'shadow-[0_0_0_2px_rgba(45,212,191,0.35)]' : 'shadow-[0_0_0_2px_rgba(249,115,22,0.35)]';
-  const color = isAvailable ? 'bg-[#2dd4bf]' : 'bg-[#f97316]';
+  const color = isAvailable ? '#2dd4bf' : '#f97316';
   const pulse = isAvailable ? '' : 'animate-amb-pulse';
-  const letter = type === 'als' ? 'A' : 'B';
+  const ambSvg = renderToStaticMarkup(<FaAmbulance color="black" size={12} />);
   return divIcon(
-    `<div class="w-5 h-5 rounded-full border-2 border-[#0f1720] ${color} ${ring} ${pulse} flex items-center justify-center text-[9px] font-bold text-white">${letter}</div>`,
+    `<div class="w-5 h-5 rounded-full border-2 border-[#0f1720] ${ring} ${pulse} flex items-center justify-center" style="background-color:${color}">${ambSvg}</div>`,
     20
   );
 }
