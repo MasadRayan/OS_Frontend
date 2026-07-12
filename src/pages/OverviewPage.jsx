@@ -6,7 +6,6 @@ import Panel from '../components/Panel';
 import AdmitPatientForm from '../components/AdmitPatientForm';
 import PatientQueue from '../components/PatientQueue';
 import ResourcePanel from '../components/ResourcePanel';
-import MetricsPanel from '../components/MetricsPanel';
 import EventLog from '../components/EventLog';
 import SchedulerSelector from '../components/SchedulerSelector';
 
@@ -35,7 +34,7 @@ export default function OverviewPage() {
     );
   }
 
-  const { hospital, waitingQueue, admitted, resources, callsQueue, ambulances, metrics, eventLog } = state;
+  const { hospital, waitingQueue, admitted, resources, callsQueue, ambulances, eventLog } = state;
   const availableAmbulances = ambulances.filter((amb) => amb.status === 'available').length;
 
   const overviewStats = [
@@ -96,41 +95,35 @@ export default function OverviewPage() {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-start">
-        {/* Column 1: Admission + Waiting Queue */}
-        <div className="flex flex-col gap-4 xl:col-span-4">
-          <Panel title="Admit patient" eyebrow="Step 1">
-            <AdmitPatientForm onSubmit={admitPatient} />
-          </Panel>
+          {/* Column 1: Admission + Waiting Queue */}
+          <div className="flex flex-col gap-4 xl:col-span-4">
+            <Panel title="Admit patient" eyebrow="Step 1">
+              <AdmitPatientForm onSubmit={admitPatient} />
+            </Panel>
 
-          <Panel
-            title="Waiting list"
-            eyebrow={`${getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} · ${schedulerInfo?.activeAlgorithm === 'preemptivePriority' ? 'aging enabled' : schedulerInfo?.activeAlgorithm === 'mlfq' ? 'multi-queue' : schedulerInfo?.activeAlgorithm === 'roundRobin' ? 'time-sliced' : schedulerInfo?.activeAlgorithm === 'edf' ? 'deadline-driven' : 'active'}`}
-            right={
-              <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
-                {waitingQueue.length} waiting
-              </span>
-            }
-          >
-            <PatientQueue patients={waitingQueue} onTreatNext={treatNextPatient} algorithmName={getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} />
-          </Panel>
-        </div>
+            <Panel
+              title="Waiting list"
+              eyebrow={`${getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} · ${schedulerInfo?.activeAlgorithm === 'preemptivePriority' ? 'aging enabled' : schedulerInfo?.activeAlgorithm === 'mlfq' ? 'multi-queue' : schedulerInfo?.activeAlgorithm === 'roundRobin' ? 'time-sliced' : schedulerInfo?.activeAlgorithm === 'edf' ? 'deadline-driven' : 'active'}`}
+              right={
+                <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
+                  {waitingQueue.length} waiting
+                </span>
+              }
+            >
+              <PatientQueue patients={waitingQueue} onTreatNext={treatNextPatient} algorithmName={getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} />
+            </Panel>
+          </div>
 
-        {/* Column 2: Resources (Banker's Algorithm) */}
-        <div className="flex flex-col gap-4 xl:col-span-4">
-          <Panel title="Hospital resources" eyebrow="Banker's Algorithm · safe-state admission">
-            <ResourcePanel resources={resources} admitted={admitted} onDischarge={dischargePatient} onTransferToIcu={transferToIcu} />
-          </Panel>
+          {/* Column 2: Resources (Banker's Algorithm) */}
+          <div className="flex flex-col gap-4 xl:col-span-8">
+            <Panel title="Hospital resources" eyebrow="Banker's Algorithm · safe-state admission">
+              <ResourcePanel resources={resources} admitted={admitted} onDischarge={dischargePatient} onTransferToIcu={transferToIcu} />
+            </Panel>
 
-          <Panel title="Activity" eyebrow="Live event feed">
-            <EventLog events={eventLog} />
-          </Panel>
-        </div>
-
-        <div className="flex flex-col gap-4 xl:col-span-4 xl:sticky xl:top-5">
-          <Panel title="Performance" eyebrow="Fairness, throughput & wait-time analysis">
-            <MetricsPanel metrics={metrics} />
-          </Panel>
-        </div>
+            <Panel title="Activity" eyebrow="Live event feed">
+              <EventLog events={eventLog} />
+            </Panel>
+          </div>
         </div>
       </main>
     </div>
