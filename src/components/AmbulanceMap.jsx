@@ -33,7 +33,7 @@ function callIcon(severity) {
 
 function pendingIcon() {
   return divIcon(
-    `<div class="w-4 h-4 rounded-full bg-transparent border-2 border-dashed border-slate-100"></div>`,
+    `<div class="w-4 h-4 rounded-full bg-red-500/10 border-2 border-dashed border-red-500"></div>`,
     16
   );
 }
