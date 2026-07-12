@@ -4,7 +4,7 @@ import { LayoutDashboard, BarChart3, ArrowLeft, Sun, Moon, Activity, Menu, X, Am
 import { useTheme } from '../theme/ThemeContext';
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Overview', icon: LayoutDashboard, end: true },
+  { to: '/dashboard', label: 'Patient Admit', icon: LayoutDashboard, end: true },
   { to: '/dashboard/ambulance', label: 'Ambulance', icon: Ambulance },
   { to: '/dashboard/analysis', label: 'Analysis', icon: BarChart3 },
 ];

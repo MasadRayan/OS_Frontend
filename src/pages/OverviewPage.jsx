@@ -46,7 +46,7 @@ export default function OverviewPage() {
 
   return (
     <div className="min-h-full flex flex-col">
-      <TopBar connected={connected} hospitalName={hospital.name} title="Overview" />
+      <TopBar connected={connected} hospitalName={hospital.name} title="Patient Admit" />
 
       <main className="flex-1 flex flex-col gap-4 p-5">
         <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-[#16212c] px-5 py-5 shadow-sm">
