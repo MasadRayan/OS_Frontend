@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDashboardData } from '../hooks/useDashboardData';
 import { endpoints } from '../api/client';
+import Swal from 'sweetalert2';
 import TopBar from '../components/TopBar';
 import Panel from '../components/Panel';
 import AmbulanceMap from '../components/AmbulanceMap';
@@ -26,8 +27,18 @@ export default function AmbulancePage() {
   }, [hospitals]);
 
   const handleCancelTrip = useCallback(async (ambulanceId) => {
-    const reason = prompt('Reason for cancellation:');
-    if (reason === null) return;
+    const { value: reason, isDismissed } = await Swal.fire({
+      title: 'Cancel dispatch',
+      text: 'Why are you cancelling this trip?',
+      input: 'text',
+      inputPlaceholder: 'e.g. Wrong unit assigned',
+      showCancelButton: true,
+      confirmButtonText: 'Cancel trip',
+      cancelButtonText: 'Go back',
+      confirmButtonColor: '#ef4444',
+      inputValidator: (v) => { if (!v) return 'Please enter a reason'; },
+    });
+    if (isDismissed) return;
     await cancelTrip(ambulanceId, reason || 'Cancelled by dispatcher');
   }, [cancelTrip]);
 
@@ -37,12 +48,28 @@ export default function AmbulancePage() {
       (a) => a.id !== ambulanceId && a.status === 'available'
     );
     if (available.length === 0) {
-      alert('No available units to reassign to.');
+      await Swal.fire({
+        icon: 'warning',
+        title: 'No units available',
+        text: 'There are no available units to reassign to.',
+        confirmButtonColor: '#0d9488',
+      });
       return;
     }
-    const names = available.map((a) => `${a.id}: ${a.name}`).join('\n');
-    const targetId = prompt(`Available units:\n${names}\n\nEnter unit ID to reassign to:`);
-    if (!targetId) return;
+    const unitOptions = {};
+    available.forEach((a) => { unitOptions[a.id] = `${a.name} ${a.type === 'als' ? '(ALS)' : '(BLS)'}`; });
+    const { value: targetId, isDismissed } = await Swal.fire({
+      title: 'Reassign trip',
+      text: 'Select a unit to reassign this trip to:',
+      input: 'select',
+      inputOptions: unitOptions,
+      showCancelButton: true,
+      confirmButtonText: 'Reassign',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#0d9488',
+      inputValidator: (v) => { if (!v) return 'Please select a unit'; },
+    });
+    if (isDismissed || !targetId) return;
     await reassignTrip(ambulanceId, targetId);
   }, [state, reassignTrip]);
 
