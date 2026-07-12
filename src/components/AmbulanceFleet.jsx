@@ -128,7 +128,8 @@ export default function AmbulanceFleet({
   const [search, setSearch] = useState('');
 
   const filtered = ambulances.filter((amb) => {
-    if (filter !== 'all' && amb.status !== filter) return false;
+    const effectiveStatus = amb.trip?.status || amb.status;
+    if (filter !== 'all' && effectiveStatus !== filter) return false;
     if (search && !amb.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
@@ -175,6 +176,7 @@ export default function AmbulanceFleet({
         {filtered.map((amb) => {
           const isExpanded = expanded === amb.id;
           const noCrew = amb.crew && amb.crew.filter((c) => c.onShift).length === 0;
+          const effectiveStatus = amb.trip?.status || amb.status;
 
           return (
             <div
@@ -182,7 +184,7 @@ export default function AmbulanceFleet({
               className={`rounded-lg border ${
                 noCrew
                   ? 'border-slate-200 dark:border-slate-700 opacity-50'
-                  : amb.status === 'available'
+                  : effectiveStatus === 'available'
                   ? 'border-slate-200 dark:border-slate-700'
                   : 'border-orange-200 dark:border-orange-900'
               }`}
@@ -198,7 +200,7 @@ export default function AmbulanceFleet({
 
                 <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${STATUS_DOT[amb.trip?.status || amb.status] || 'bg-slate-500'}`} />
 
-                <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="font-medium text-[12.5px] text-slate-900 dark:text-slate-100">{amb.name}</span>
                     {typeBadge(amb.type)}
@@ -212,7 +214,7 @@ export default function AmbulanceFleet({
                   </div>
 
                   <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {STATUS_LABEL[amb.trip?.status || amb.status] || (amb.trip?.status || amb.status)}
+                    {STATUS_LABEL[effectiveStatus] || effectiveStatus}
                   </div>
 
                   {amb.trip && (
@@ -227,12 +229,12 @@ export default function AmbulanceFleet({
 
                 {/* Actions */}
                 <div className="flex items-center gap-1 flex-shrink-0">
-                  {amb.trip && amb.status !== 'arrived' && amb.status !== 'available' && (
+                  {amb.trip && effectiveStatus !== 'arrived' && amb.status !== 'available' && (
                     <>
                       {onCompleteTrip && (
                         <button
                           onClick={() => onCompleteTrip(amb.id)}
-                          disabled={amb.status !== 'en_route' && amb.status !== 'on_scene' && amb.status !== 'transporting'}
+                          disabled={effectiveStatus !== 'en_route' && effectiveStatus !== 'on_scene' && effectiveStatus !== 'transporting'}
                           className="p-1.5 rounded text-[11px] bg-teal-500/10 text-teal-600 dark:text-teal-400 hover:bg-teal-500/20 disabled:opacity-30 disabled:cursor-not-allowed"
                           title="Mark arrived"
                         >
