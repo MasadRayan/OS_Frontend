@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { SEV_DOT_BG, SEV_BADGE, SEVERITY_LABELS } from '../lib/severity';
+import { FaAmbulance } from "react-icons/fa";
 
 function divIcon(html, size = 26) {
   return L.divIcon({ html, className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });

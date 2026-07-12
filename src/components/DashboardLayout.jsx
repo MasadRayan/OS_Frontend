@@ -4,7 +4,7 @@ import { LayoutDashboard, BarChart3, ArrowLeft, Sun, Moon, Activity, Menu, X, Am
 import { useTheme } from '../theme/ThemeContext';
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Patient Admit', icon: LayoutDashboard, end: true },
+  { to: '/dashboard', label: 'Overview', icon: LayoutDashboard, end: true },
   { to: '/dashboard/ambulance', label: 'Ambulance', icon: Ambulance },
   { to: '/dashboard/analysis', label: 'Analysis', icon: BarChart3 },
 ];
@@ -13,7 +13,7 @@ function navItemClass({ isActive }) {
   return `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
     isActive
       ? 'bg-teal-500/10 text-brand-light dark:text-brand-dark'
-      : 'text-slate-500 dark:text-gray-700 hover:bg-slate-100 dark:hover:bg-slate-800'
+      : 'text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
   }`;
 }
 
@@ -21,7 +21,7 @@ function mobileNavItemClass({ isActive }) {
   return `flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap ${
     isActive
       ? 'bg-teal-500/10 text-brand-light dark:text-brand-dark'
-      : 'text-slate-500 dark:text-gray-700'
+      : 'text-slate-500 dark:text-slate-300'
   }`;
 }
 
