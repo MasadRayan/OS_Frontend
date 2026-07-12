@@ -196,7 +196,7 @@ export default function AmbulanceFleet({
                   {isExpanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
                 </button>
 
-                <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${STATUS_DOT[amb.status] || 'bg-slate-500'}`} />
+                <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${STATUS_DOT[amb.trip?.status || amb.status] || 'bg-slate-500'}`} />
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
@@ -212,7 +212,7 @@ export default function AmbulanceFleet({
                   </div>
 
                   <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {STATUS_LABEL[amb.status] || amb.status}
+                    {STATUS_LABEL[amb.trip?.status || amb.status] || (amb.trip?.status || amb.status)}
                   </div>
 
                   {amb.trip && (

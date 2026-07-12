@@ -9,7 +9,6 @@ export default function AmbulanceRequestForm({ pendingLocation, onClearLocation,
   const [note, setNote] = useState('');
   const [severity, setSeverity] = useState(2);
   const [submitting, setSubmitting] = useState(false);
-  const [destinationId, setDestinationId] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -22,18 +21,14 @@ export default function AmbulanceRequestForm({ pendingLocation, onClearLocation,
         severity,
         lat: pendingLocation.lat,
         lng: pendingLocation.lng,
-        ...(destinationId ? { destinationId } : {}),
       });
       setCallerName('');
       setNote('');
       setSeverity(2);
-      setDestinationId('');
     } finally {
       setSubmitting(false);
     }
   }
-
-  const showHospitals = hospitals && hospitals.length > 1;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
@@ -75,20 +70,7 @@ export default function AmbulanceRequestForm({ pendingLocation, onClearLocation,
         ))}
       </div>
 
-      {showHospitals && (
-        <select
-          className={inputClass}
-          value={destinationId}
-          onChange={(e) => setDestinationId(e.target.value)}
-        >
-          <option value="">Auto-select destination hospital</option>
-          {hospitals.map((h) => (
-            <option key={h.id} value={h.id}>
-              {h.name} {h.bedsAvailable != null ? `(${h.bedsAvailable} beds)` : ''}
-            </option>
-          ))}
-        </select>
-      )}
+      {/* Destination is auto-selected by the backend; UI selection removed */}
 
       <div className="flex gap-2">
         <button
