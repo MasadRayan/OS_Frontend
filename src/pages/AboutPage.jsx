@@ -86,7 +86,7 @@ function Eyebrow({ children, dot }) {
   return (
     <div className="flex items-center gap-2 mb-3">
       {dot && <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />}
-      <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-slate-400 dark:text-slate-500">
+      <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-slate-600 dark:text-slate-500">
         {children}
       </span>
     </div>
@@ -108,14 +108,14 @@ function QueueCompare() {
   return (
     <div className="grid sm:grid-cols-2 gap-3 mt-8 max-w-xl">
       <div className="bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl p-4">
-        <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-400 dark:text-slate-500 mb-3">
+        <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-600 dark:text-slate-500 mb-3">
           Arrival order · FCFS
         </div>
         <div className="space-y-1.5">
           {fcfs.map((p, i) => (
             <div key={p.label} className="flex items-center gap-2">
               <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${p.tone}`} />
-              <span className={`text-[13px] font-mono ${i === 2 ? 'text-red-500 font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
+              <span className={`text-[13px] font-mono ${i === 2 ? 'text-red-500 font-semibold' : 'text-slate-600 dark:text-slate-500'}`}>
                 {p.label}
               </span>
               {i === 2 && <span className="text-[10px] font-mono text-red-500/70 ml-auto">waits 3rd</span>}
@@ -131,7 +131,7 @@ function QueueCompare() {
           {priority.map((p, i) => (
             <div key={p.label} className="flex items-center gap-2">
               <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${p.tone}`} />
-              <span className={`text-[13px] font-mono ${i === 0 ? 'text-slate-900 dark:text-slate-100 font-semibold' : 'text-slate-400 dark:text-slate-500'}`}>
+              <span className={`text-[13px] font-mono ${i === 0 ? 'text-slate-900 dark:text-slate-100 font-semibold' : 'text-slate-600 dark:text-slate-500'}`}>
                 {p.label}
               </span>
               {i === 0 && <span className="text-[10px] font-mono text-brand-light dark:text-brand-dark ml-auto">seen 1st</span>}
@@ -153,18 +153,18 @@ function MappingRow({ m, delay }) {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="relative bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl px-5 sm:px-8 py-6 hover:border-brand-light/50 dark:hover:border-brand-dark/50 transition-colors duration-300">
-        <span className="absolute top-5 left-5 font-mono text-[10px] tracking-widest text-slate-300 dark:text-slate-600">
+        <span className="absolute top-5 left-5 font-mono text-[10px] tracking-widest text-slate-600 dark:text-slate-600">
           {m.num}
         </span>
 
         <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-5 sm:gap-6 items-center pt-4 sm:pt-0">
           {/* OS side */}
           <div className="sm:text-right">
-            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1">
+            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-600 dark:text-slate-500 mb-1">
               OS Concept
             </div>
             <div className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{m.os}</div>
-            <p className="m-0 text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">{m.osDesc}</p>
+            <p className="m-0 text-[13px] text-slate-700 dark:text-slate-400 leading-relaxed">{m.osDesc}</p>
           </div>
 
           {/* Connector */}
@@ -180,17 +180,17 @@ function MappingRow({ m, delay }) {
 
           {/* ER side */}
           <div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1">
+            <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-600 dark:text-slate-500 mb-1">
               ER Equivalent
             </div>
             <div className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{m.er}</div>
-            <p className="m-0 text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">{m.erDesc}</p>
+            <p className="m-0 text-[13px] text-slate-700 dark:text-slate-400 leading-relaxed">{m.erDesc}</p>
           </div>
         </div>
 
         <div className="flex items-center justify-center gap-2 mt-5 pt-4 border-t border-slate-200 dark:border-slate-700">
           <span className={`w-1.5 h-1.5 rounded-full ${m.dotColor}`} />
-          <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">{m.algo}</span>
+          <span className="font-mono text-[11px] text-slate-700 dark:text-slate-400">{m.algo}</span>
         </div>
       </div>
     </div>
@@ -214,10 +214,10 @@ function TimelineStage({ stage, delay, isLast }) {
 
       <div className="flex-1 -mt-0.5 pb-1">
         <div className="flex items-baseline gap-2.5 flex-wrap">
-          <span className="font-mono text-[10px] text-slate-300 dark:text-slate-600">{stage.num.padStart(2, '0')}</span>
+          <span className="font-mono text-[10px] text-slate-600 dark:text-slate-600">{stage.num.padStart(2, '0')}</span>
           <span className="font-semibold text-sm text-slate-900 dark:text-slate-100">{stage.er}</span>
         </div>
-        <span className="font-mono text-[12px] text-slate-500 dark:text-slate-400">{stage.algo}</span>
+        <span className="font-mono text-[12px] text-slate-700 dark:text-slate-400">{stage.algo}</span>
       </div>
     </div>
   );
@@ -237,7 +237,7 @@ export default function AboutPage() {
         </FadeBlock>
 
         <FadeBlock delay={200}>
-          <p className="m-0 max-w-3xl text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+          <p className="m-0 max-w-3xl text-slate-700 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
             Pulse applies operating-system scheduling — preemptive priority with aging, the Banker&apos;s Algorithm, and earliest-deadline-first — to emergency triage and ambulance dispatch. This is how a line of waiting processes became a matter of life and death.
           </p>
         </FadeBlock>
@@ -250,12 +250,12 @@ export default function AboutPage() {
         <FadeBlock>
           <div className="max-w-3xl">
             <Eyebrow>The Problem</Eyebrow>
-            <p className="m-0 text-slate-900 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-5">
+            <p className="m-0 text-slate-800 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-5">
               Most emergency rooms sort patients by arrival time.{' '}
               <span className="font-heading italic text-slate-900 dark:text-slate-100">First-come, first-served</span>{' '}
               is simple, but it ignores urgency. A patient having a heart attack waits behind someone who stubbed a toe — because the toe arrived first.
             </p>
-            <p className="m-0 text-slate-700 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+            <p className="m-0 text-slate-800 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
               Operating systems solved this decades ago, with algorithms that balance fairness, priority, and resource safety.{' '}
               <span className="font-semibold text-slate-900 dark:text-slate-100">Pulse brings those solutions to the ER.</span>
             </p>
@@ -290,14 +290,14 @@ export default function AboutPage() {
             <h2 className="m-0 mb-3 text-2xl sm:text-3xl font-heading font-normal leading-tight text-slate-900 dark:text-slate-100">
               From arrival<br />to discharge
             </h2>
-            <p className="m-0 max-w-sm text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed">
+            <p className="m-0 max-w-sm text-slate-700 dark:text-slate-400 text-[15px] leading-relaxed">
               Every patient flows through the same five stages. The algorithm at each stage decides who moves next, and when.
             </p>
           </FadeBlock>
 
           <FadeBlock delay={150}>
             <div className="bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl p-6 sm:p-7">
-              <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-400 dark:text-slate-500 mb-6">
+              <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-600 dark:text-slate-500 mb-6">
                 $ systemctl status patient-flow
               </div>
               {PIPELINE.map((stage, i) => (
@@ -329,7 +329,7 @@ export default function AboutPage() {
                 <span className="w-2 h-2 rounded-full bg-red-400/70" />
                 <span className="w-2 h-2 rounded-full bg-amber-400/70" />
                 <span className="w-2 h-2 rounded-full bg-green-400/70" />
-                <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 ml-2">ps aux | pulse</span>
+                <span className="font-mono text-[10px] text-slate-700 dark:text-slate-500 ml-2">ps aux | pulse</span>
               </div>
               <div>
                 {STACK.map((item, i) => (
@@ -337,13 +337,13 @@ export default function AboutPage() {
                     key={item.label}
                     className={`flex items-center gap-4 px-4 sm:px-5 py-4 ${i !== STACK.length - 1 ? 'border-b border-slate-200 dark:border-slate-700' : ''}`}
                   >
-                    <span className="font-mono text-[11px] text-slate-300 dark:text-slate-600 w-10 flex-shrink-0">{item.pid}</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-600 w-10 flex-shrink-0">{item.pid}</span>
                     <div className="w-9 h-9 rounded-lg bg-teal-500/10 flex items-center justify-center flex-shrink-0">
                       <item.icon size={16} className="text-brand-light dark:text-brand-dark" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.label}</div>
-                      <div className="text-[12px] text-slate-500 dark:text-slate-400 mt-0.5">{item.sub}</div>
+                      <div className="text-[12px] text-slate-700 dark:text-slate-400 mt-0.5">{item.sub}</div>
                     </div>
                     <span className="hidden sm:inline font-mono text-[10px] text-green-500 flex-shrink-0">running</span>
                   </div>
@@ -364,7 +364,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h3 className="m-0 mb-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">See it running live</h3>
-                <p className="m-0 text-slate-500 dark:text-slate-400 text-[13px] max-w-md leading-relaxed">
+                <p className="m-0 text-slate-700 dark:text-slate-400 text-[13px] max-w-md leading-relaxed">
                   Admit patients, watch the queue re-sort in real time, and dispatch ambulances on the map. No setup required.
                 </p>
               </div>
