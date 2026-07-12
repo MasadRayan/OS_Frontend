@@ -5,6 +5,7 @@ const POLL_INTERVAL_MS = 5000;
 
 export function useAnalysisData() {
   const [analysis, setAnalysis] = useState(null);
+  const [responseTimes, setResponseTimes] = useState(null);
   const [connected, setConnected] = useState(false);
   const timerRef = useRef(null);
 
@@ -18,11 +19,24 @@ export function useAnalysisData() {
     }
   }, []);
 
+  const fetchResponseTimes = useCallback(async () => {
+    try {
+      const res = await endpoints.getResponseTimes();
+      setResponseTimes(res.data);
+    } catch {
+      // non-critical
+    }
+  }, []);
+
   useEffect(() => {
     fetchAnalysis();
-    timerRef.current = setInterval(fetchAnalysis, POLL_INTERVAL_MS);
+    fetchResponseTimes();
+    timerRef.current = setInterval(() => {
+      fetchAnalysis();
+      fetchResponseTimes();
+    }, POLL_INTERVAL_MS);
     return () => clearInterval(timerRef.current);
-  }, [fetchAnalysis]);
+  }, [fetchAnalysis, fetchResponseTimes]);
 
-  return { analysis, connected, refetch: fetchAnalysis };
+  return { analysis, responseTimes, connected, refetch: fetchAnalysis };
 }

@@ -13,6 +13,11 @@ export const endpoints = {
   dischargePatient: (patientId) => api.post(`/patients/${patientId}/discharge`),
   requestAmbulance: (payload) => api.post('/ambulance/request', payload),
   completeTrip: (ambulanceId) => api.post(`/ambulance/${ambulanceId}/complete-trip`),
+  cancelTrip: (ambulanceId, reason) => api.post(`/ambulance/${ambulanceId}/cancel`, { reason }),
+  reassignTrip: (ambulanceId, targetAmbulanceId) => api.post(`/ambulance/${ambulanceId}/reassign`, { targetAmbulanceId }),
+  getHospitals: () => api.get('/hospitals'),
+  getTripHistory: (params) => api.get('/ambulance/history', { params }),
+  getResponseTimes: () => api.get('/analysis/response-times'),
   getSchedulerConfig: () => api.get('/config/scheduler'),
   setSchedulerConfig: (payload) => api.put('/config/scheduler', payload),
 };

@@ -56,6 +56,16 @@ export function useDashboardData() {
     setState(res.data.state);
   }, []);
 
+  const cancelTrip = useCallback(async (ambulanceId, reason) => {
+    const res = await endpoints.cancelTrip(ambulanceId, reason);
+    setState(res.data.state);
+  }, []);
+
+  const reassignTrip = useCallback(async (ambulanceId, targetAmbulanceId) => {
+    const res = await endpoints.reassignTrip(ambulanceId, targetAmbulanceId);
+    setState(res.data.state);
+  }, []);
+
   return {
     state,
     connected,
@@ -66,5 +76,7 @@ export function useDashboardData() {
     dischargePatient,
     requestAmbulance,
     completeTrip,
+    cancelTrip,
+    reassignTrip,
   };
 }
