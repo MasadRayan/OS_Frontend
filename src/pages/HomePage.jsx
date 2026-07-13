@@ -586,58 +586,6 @@ export default function HomePage() {
         </FadeBlock>
       </section>
 
-      {/* ── Project Info ── */}
-      <section className="bg-white dark:bg-[#16212c] border-y border-slate-200 dark:border-slate-700">
-        <div className="max-w-6xl mx-auto px-5 py-14 sm:py-16 w-full">
-          <FadeBlock>
-            <Eyebrow>Project Info</Eyebrow>
-            <h2 className="m-0 mb-10 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-              Course &amp; team
-            </h2>
-          </FadeBlock>
-
-          <FadeBlock delay={100}>
-            <div className="grid sm:grid-cols-3 gap-4">
-              <div className="bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl p-5">
-                <GraduationCap size={18} className="text-brand-light dark:text-brand-dark mb-3" />
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1.5">
-                  Course
-                </div>
-                <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-0.5">{PROJECT_INFO.course}</div>
-                <div className="text-[12.5px] text-slate-500 dark:text-slate-400">{PROJECT_INFO.institution} · {PROJECT_INFO.term}</div>
-              </div>
-
-              <div className="bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl p-5">
-                <Users size={18} className="text-brand-light dark:text-brand-dark mb-3" />
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1.5">
-                  Team
-                </div>
-                <ul className="m-0 p-0 list-none space-y-0.5">
-                  {PROJECT_INFO.team.map((member) => (
-                    <li key={member} className="text-[13px] font-medium text-slate-700 dark:text-slate-300">{member}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <a
-                href={PROJECT_INFO.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-slate-50 dark:bg-[#0f1720] border border-slate-200 dark:border-slate-700 rounded-xl p-5 no-underline hover:border-brand-light dark:hover:border-brand-dark transition-colors"
-              >
-                <Github size={18} className="text-brand-light dark:text-brand-dark mb-3" />
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1.5">
-                  Source
-                </div>
-                <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-0.5">View repository</div>
-                <div className="text-[12.5px] text-slate-500 dark:text-slate-400 truncate group-hover:text-brand-light dark:group-hover:text-brand-dark">
-                  {PROJECT_INFO.repo.replace('https://', '')}
-                </div>
-              </a>
-            </div>
-          </FadeBlock>
-        </div>
-      </section>
 
       {/* ── CTA ── */}
       <section className="max-w-6xl mx-auto px-5 py-14 sm:py-20 w-full">
