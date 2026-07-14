@@ -3,7 +3,6 @@ import { endpoints } from '../api/client';
 
 const POLL_INTERVAL_MS = 3000;
 
-/** Polls GET /api/state on an interval and exposes axios-backed action calls. */
 export function useDashboardData() {
   const [state, setState] = useState(null);
   const [connected, setConnected] = useState(false);
