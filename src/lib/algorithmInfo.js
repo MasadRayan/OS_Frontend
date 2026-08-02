@@ -46,28 +46,9 @@ export const ALGORITHM_INFO = {
       quantumMinutes: { label: 'Quantum (minutes)', type: 'number', min: 1, max: 10, step: 1 },
     },
   },
-  mlfq: {
-    id: 'mlfq',
-    name: 'Multilevel Feedback Queue',
-    shortName: 'MLFQ',
-    description: 'Multiple queues by severity level; patients are promoted to higher-priority queues if they wait too long at their level.',
-    osConcept: 'MLFQ (used in BSD Unix); balances fairness with priority by dynamically promoting waiting processes.',
-    fields: ['sortKey', 'currentLevel', 'originalLevel', 'promoted'],
-    params: {
-      quantumByLevel: { label: 'Quantum per level (JSON)', type: 'json' },
-    },
-  },
-  edf: {
-    id: 'edf',
-    name: 'Earliest Deadline First',
-    shortName: 'EDF',
-    description: 'Patients with the closest golden-hour deadline are treated first.',
-    osConcept: 'Real-time scheduling; dynamic priority based on deadline proximity. Optimal for meeting all deadlines.',
-    fields: ['sortKey (deadlineAt)'],
-  },
 };
 
-export const ALGORITHM_ORDER = ['fcfs', 'sjf', 'priority', 'preemptivePriority', 'roundRobin', 'mlfq', 'edf'];
+export const ALGORITHM_ORDER = ['fcfs', 'sjf', 'priority', 'preemptivePriority', 'roundRobin'];
 
 export function getAlgorithmInfo(id) {
   return ALGORITHM_INFO[id] || ALGORITHM_INFO.fcfs;

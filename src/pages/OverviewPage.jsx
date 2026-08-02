@@ -103,7 +103,7 @@ export default function OverviewPage() {
 
             <Panel
               title="Waiting list"
-              eyebrow={`${getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} · ${schedulerInfo?.activeAlgorithm === 'preemptivePriority' ? 'aging enabled' : schedulerInfo?.activeAlgorithm === 'mlfq' ? 'multi-queue' : schedulerInfo?.activeAlgorithm === 'roundRobin' ? 'time-sliced' : schedulerInfo?.activeAlgorithm === 'edf' ? 'deadline-driven' : 'active'}`}
+              eyebrow={`${getAlgorithmInfo(schedulerInfo?.activeAlgorithm).shortName} · ${schedulerInfo?.activeAlgorithm === 'preemptivePriority' ? 'aging enabled' : schedulerInfo?.activeAlgorithm === 'roundRobin' ? 'time-sliced' : 'active'}`}
               right={
                 <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
                   {waitingQueue.length} waiting

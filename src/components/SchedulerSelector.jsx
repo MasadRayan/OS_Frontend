@@ -10,7 +10,7 @@ export default function SchedulerSelector({ config, onSetAlgorithm, loading }) {
   const [feedback, setFeedback] = useState(null);
 
   const activeInfo = getAlgorithmInfo(config?.activeAlgorithm);
-  const allAlgorithms = config?.availableAlgorithms || [];
+  const allAlgorithms = (config?.availableAlgorithms || []).filter((a) => !['mlfq', 'edf'].includes(a.id));
   const selectedInfo = getAlgorithmInfo(selected);
   const hasParams = selectedInfo.params && Object.keys(selectedInfo.params).length > 0;
 
