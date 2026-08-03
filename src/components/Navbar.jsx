@@ -5,9 +5,9 @@ import { useTheme } from '../theme/ThemeContext';
 
 const LINKS = [
   { to: '/', label: 'Home', end: true },
-  { to: '/dashboard', label: 'Dashboard' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
+  { to: '/dashboard', label: 'Dashboard' },
 ];
 
 const linkClass = ({ isActive }) =>
